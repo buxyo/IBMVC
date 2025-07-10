@@ -1,5 +1,7 @@
 <?php
 
+// File: core/Router.php
+
 declare(strict_types=1);
 
 namespace Core;
@@ -33,9 +35,15 @@ class Router
 
         $controllerClass = 'App\\Controllers\\' . $controllerName;
 
-        if (!class_exists($controllerClass) || !method_exists($controllerClass, $methodName)) {
+        if (!class_exists($controllerClass)) {
             http_response_code(500);
-            echo "Controller or method not found.";
+            echo "Error: Controller class not found: $controllerClass";
+            exit;
+        }
+
+        if (!method_exists($controllerClass, $methodName)) {
+            http_response_code(500);
+            echo "Error: Method not found: $methodName in $controllerClass";
             exit;
         }
 

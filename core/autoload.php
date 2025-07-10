@@ -1,17 +1,24 @@
 <?php
 
+// File: core/autoload.php
+
 declare(strict_types=1);
 
-// Simple PSR-4 style autoloader
+// Clean PSR-4 autoloader for IBMVC
 spl_autoload_register(function ($class) {
-    $base_dir = __DIR__ . '/../app/';
-    $core_dir = __DIR__ . '/';
+    $class_path = str_replace('\\', '/', $class) . '.php';
 
-    $class = str_replace('\\', '/', $class);
+    $paths = [
+        __DIR__ . '/../' . $class_path,        // App/*
+        __DIR__ . '/' . basename($class_path), // Core/*
+    ];
 
-    if (file_exists($base_dir . $class . '.php')) {
-        require_once $base_dir . $class . '.php';
-    } elseif (file_exists($core_dir . $class . '.php')) {
-        require_once $core_dir . $class . '.php';
+    foreach ($paths as $file) {
+        if (file_exists($file)) {
+            require_once $file;
+            return;
+        }
     }
+
+    echo "<pre>Autoload failed for: $class (tried: " . implode(', ', $paths) . ")</pre>";
 });

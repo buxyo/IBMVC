@@ -1,5 +1,7 @@
 <?php
 
+// File: core/Controller.php
+
 declare(strict_types=1);
 
 namespace Core;
@@ -9,7 +11,7 @@ class Controller
     protected function view(string $view, array $data = []): void
     {
         extract($data);
-        $viewPath = __DIR__ . '/../app/views/' . $view . '.php';
+        $viewPath = __DIR__ . '/../App/Views/' . $view . '.php';
 
         if (file_exists($viewPath)) {
             require $viewPath;
