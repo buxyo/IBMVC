@@ -1,7 +1,5 @@
 <?php
 
-// File: core/Router.php
-
 declare(strict_types=1);
 
 namespace Core;
@@ -12,17 +10,17 @@ class Router
 
     public function get(string $uri, string $action): void
     {
-        $this->routes['GET'][$this->trim($uri)] = $action;
+        $this->routes['GET'][$this->normalizeUri($uri)] = $action;
     }
 
     public function post(string $uri, string $action): void
     {
-        $this->routes['POST'][$this->trim($uri)] = $action;
+        $this->routes['POST'][$this->normalizeUri($uri)] = $action;
     }
 
     public function dispatch(string $requestUri): void
     {
-        $uri = $this->trim(parse_url($requestUri, PHP_URL_PATH));
+        $uri = $this->normalizeUri(parse_url($requestUri, PHP_URL_PATH));
         $method = $_SERVER['REQUEST_METHOD'] ?? 'GET';
 
         if (!isset($this->routes[$method][$uri])) {
@@ -37,13 +35,15 @@ class Router
 
         if (!class_exists($controllerClass)) {
             http_response_code(500);
-            echo "Error: Controller class not found: $controllerClass";
+            error_log("Controller class not found: $controllerClass");
+            echo "Error: Controller class not found.";
             exit;
         }
 
         if (!method_exists($controllerClass, $methodName)) {
             http_response_code(500);
-            echo "Error: Method not found: $methodName in $controllerClass";
+            error_log("Method not found: $methodName in $controllerClass");
+            echo "Error: Method not found.";
             exit;
         }
 
@@ -51,7 +51,7 @@ class Router
         call_user_func([$controller, $methodName]);
     }
 
-    private function trim(string $uri): string
+    private function normalizeUri(string $uri): string
     {
         return '/' . trim($uri, '/');
     }

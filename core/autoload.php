@@ -1,11 +1,9 @@
 <?php
 
-// File: core/autoload.php
-
 declare(strict_types=1);
 
 // Clean PSR-4 autoloader for IBMVC
-spl_autoload_register(function ($class) {
+spl_autoload_register(function (string $class): void {
     $class_path = str_replace('\\', '/', $class) . '.php';
 
     $paths = [
@@ -14,11 +12,12 @@ spl_autoload_register(function ($class) {
     ];
 
     foreach ($paths as $file) {
-        if (file_exists($file)) {
+        if (is_readable($file)) { // Use is_readable for better validation
             require_once $file;
             return;
         }
     }
 
-    echo "<pre>Autoload failed for: $class (tried: " . implode(', ', $paths) . ")</pre>";
+    error_log("Autoload failed for: $class (tried: " . implode(', ', $paths) . ")");
+    echo "<pre>Autoload failed for: $class (check logs for details)</pre>"; // Hide file paths in the output
 });
