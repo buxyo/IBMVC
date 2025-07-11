@@ -35,4 +35,14 @@ class Controller
         echo "Error: Model not found.";
         return null;
     }
+
+    protected function model(string $model)
+    {
+        return $this->loadModel($model);
+    }
+
+    protected function loadLanguage(string $lang = 'en'): Language
+    {
+        return new Language($lang);
+    }
 }

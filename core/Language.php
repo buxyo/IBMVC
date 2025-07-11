@@ -28,6 +28,9 @@ class Language
 
     public function get(string $key): string
     {
+        error_log("Requested key: $key");
+        error_log("Translations: " . print_r($this->translations, true));
+
         // Use htmlspecialchars to sanitize output, preventing potential XSS issues
         return htmlspecialchars($this->translations[$key] ?? $key, ENT_QUOTES, 'UTF-8');
     }

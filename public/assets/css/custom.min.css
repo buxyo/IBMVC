@@ -1,2 +1,18 @@
-
 /*# sourceMappingURL=custom.min.css.map */
+
+@media (max-width: 576px) {
+    .page-title-box {
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+        align-items: center;
+    }
+
+    .page-title-right {
+        margin: 0;
+    }
+
+    h4 {
+        margin: 0;
+    }
+}
