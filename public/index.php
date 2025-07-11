@@ -25,7 +25,8 @@ $router->post('/login', 'AuthController@handleLogin');
 $router->get('/logout', 'AuthController@logout');
 
 // Add route for drivers page
-$router->get('/drivers', 'DriversController@index');
+$router->get('/drivers', 'DriversController@index', ['viewPath' => 'Drivers/drivers']);
+$router->get('/addDriver', 'DriversController@addDriver', ['viewPath' => 'Drivers/add_driver']);
 
 // Start the session if not already started
 if (session_status() === PHP_SESSION_NONE) {

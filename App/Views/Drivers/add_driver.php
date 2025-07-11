@@ -6,18 +6,18 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title><?= htmlspecialchars($pageTitle ?? 'Homepage', ENT_QUOTES, 'UTF-8') ?></title>
-    <link href="/assets/css/bootstrap.min.css" rel="stylesheet" type="text/css">
-    <link href="/assets/css/app.min.css" rel="stylesheet" type="text/css">
-    <link href="/assets/css/custom.min.css" rel="stylesheet" type="text/css">
-    <script src="/assets/js/pages/remix-icons-listing.js"></script>
+    <link href="./assets/css/bootstrap.min.css" rel="stylesheet" type="text/css">
+    <link href="./assets/css/app.min.css" rel="stylesheet" type="text/css">
+    <link href="./assets/css/custom.min.css" rel="stylesheet" type="text/css">
+    <script src="./assets/js/pages/remix-icons-listing.js"></script>
 </head>
 
 <body>
     <!-- Include topbar -->
-    <?php include __DIR__ . '/includes/topbar.php'; ?>
+    <?php include __DIR__ . '/../includes/topbar.php'; ?>
 
     <!-- Include sidebar -->
-    <?php include __DIR__ . '/includes/sidebar.php'; ?>
+    <?php include __DIR__ . '/../includes/sidebar.php'; ?>
 
     <!-- Main Content -->
     <div class="main-content">
@@ -40,6 +40,28 @@
                 <!-- Content goes here -->
                 <div class="content-area">
                     <h1><?= htmlspecialchars($message ?? 'Welcome to Intelboard!', ENT_QUOTES, 'UTF-8') ?></h1>
+
+                    <!-- Add Driver Form -->
+                    <form action="/addDriver" method="POST" class="mt-4">
+                        <div class="mb-3">
+                            <label for="full_name" class="form-label">Full Name</label>
+                            <input type="text" class="form-control" id="full_name" name="full_name" required>
+                        </div>
+
+                        <div class="mb-3">
+                            <label for="phone" class="form-label">Phone</label>
+                            <input type="text" class="form-control" id="phone" name="phone" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="driver_id" class="form-label">Driver ID</label>
+                            <input type="text" class="form-control" id="driver_id" name="driver_id" required>
+                        </div>
+                                                <div class="mb-3">
+                            <label for="nas" class="form-label">NAS</label>
+                            <input type="text" class="form-control" id="nas" name="nas" required>
+                        </div>
+                        <button type="submit" class="btn btn-success">Submit</button>
+                    </form>
                 </div>
             </div>
         </div>
@@ -59,4 +81,7 @@
     </div>
 
     <!-- Include footer -->
-    <?php include __DIR__ . '/includes/footer.php'; ?>
+    <?php include __DIR__ . '/../includes/footer.php'; ?>
+</body>
+
+</html>

@@ -51,6 +51,11 @@ class Router
         call_user_func([$controller, $methodName]);
     }
 
+    public function addRoutes(): void
+    {
+        $this->get('/addDriver', 'DriversController@addDriver');
+    }
+
     private function normalizeUri(string $uri): string
     {
         return '/' . trim($uri, '/');
